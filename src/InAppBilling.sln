@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.InAppBilling.iOS", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.InAppBilling.Android", "Plugin.InAppBilling.Android\Plugin.InAppBilling.Android.csproj", "{56A56F17-7DE1-4CA1-9617-BF32E971AC84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.InAppBilling.UWP", "Plugin.InAppBilling.UWP\Plugin.InAppBilling.UWP.csproj", "{E34B516D-C0D8-450F-9DB0-BB6A5B04AEF1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingLibrary", "VendingLibrary\VendingLibrary.csproj", "{B54390E5-B309-4F2B-9EC5-63D4509F561E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3236B15E-C644-4FAA-8568-55E39CCE6D2F}"
@@ -26,8 +24,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.InAppBilling", "Plugin.InAppBilling\Plugin.InAppBilling.csproj", "{C570E25E-259F-4D4C-88F0-B2982815192D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.InAppBilling.Abstractions", "Plugin.InAppBilling.Abstractions\Plugin.InAppBilling.Abstractions.csproj", "{CCD0ED8A-828B-4AC0-A5F2-666A8D5BFE03}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.InAppBilling.tvOS", "Plugin.InAppBilling.tvOS\Plugin.InAppBilling.tvOS.csproj", "{79036EB1-A7BE-45C4-97F2-061EEC984BEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{6A41C44D-4B82-4039-B2AC-07D668168569}"
 	ProjectSection(SolutionItems) = preProject
