@@ -27,14 +27,12 @@
       <group targetFramework="net">
 				<dependency id="System.ValueTuple" version="4.5.0"/>
       </group>
-      <!--
       <group targetFramework="win">
       </group>
       <group targetFramework="wp">
       </group>
       <group targetFramework="wpa">
       </group>
-      -->
       <group targetFramework="MonoAndroid10">
         <dependency id="Newtonsoft.Json" version="11.0.2"/>
         <dependency id="Plugin.CurrentActivity" version="2.1.0.4"/>
