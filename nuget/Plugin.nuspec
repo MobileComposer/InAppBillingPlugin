@@ -49,7 +49,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="nuget\readme.txt" target="readme.txt" />
+
+    <!--<file src="nuget\readme.txt" target="readme.txt" />-->
     
     <!--Core-->
     <file src="src\Plugin.InAppBilling\bin\Release\netstandard1.0\Plugin.InAppBilling.*" target="lib\netstandard1.0" />
