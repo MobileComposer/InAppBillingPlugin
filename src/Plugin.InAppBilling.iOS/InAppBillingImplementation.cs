@@ -191,6 +191,8 @@ namespace Plugin.InAppBilling
 		/// <returns></returns>
 		public async override Task<InAppBillingPurchase> PurchaseAsync(string productId, ItemType itemType, string payload, IInAppBillingVerifyPurchase verifyPurchase = null)
 		{
+			Console.WriteLine($"PurchaseAsync1() - productId: { productId }");
+
 			var p = await PurchaseAsync(productId);
 
 			var reference = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -205,9 +207,15 @@ namespace Plugin.InAppBilling
 			};
 
 			if (verifyPurchase == null)
+			{
+				Console.WriteLine($"PurchaseAsync1() - verifyPurchase is null - return");
+
 				return purchase;
+			}
 
 			var validated = await ValidateReceipt(verifyPurchase, purchase.ProductId, purchase.Id);
+
+			Console.WriteLine($"PurchaseAsync1() - validated: { validated }");
 
 			return validated ? purchase : null;
 		}
@@ -244,17 +252,29 @@ namespace Plugin.InAppBilling
 
 		Task<SKPaymentTransaction> PurchaseAsync(string productId)
 		{
+			Console.WriteLine($"PurchaseAsync()");
+
 			var tcsTransaction = new TaskCompletionSource<SKPaymentTransaction>();
 
 			Action<SKPaymentTransaction, bool> handler = null;
 			handler = new Action<SKPaymentTransaction, bool>((tran, success) =>
 			{
+				if(tran != null)
+				{
+					Console.WriteLine($"PurchaseAsync() - tran: { tran }");
+				}
+
+				Console.WriteLine($"PurchaseAsync() - success: { success }");
+
 				if (tran?.Payment == null)
 					return;
 
 				// Only handle results from this request
 				if (productId != tran.Payment.ProductIdentifier)
+				{
+					Console.WriteLine($"PurchaseAsync() - Only handle results from this request");
 					return;
+				}
 
 				// Unsubscribe from future events
 				paymentObserver.TransactionCompleted -= handler;
@@ -266,6 +286,9 @@ namespace Plugin.InAppBilling
 				}
 
 				var errorCode = tran?.Error?.Code ?? -1;
+
+				Console.WriteLine($"PurchaseAsync() - errorCode: { errorCode }");
+
 				var description = tran?.Error?.LocalizedDescription ?? string.Empty;
 				var error = PurchaseError.GeneralError;
 				switch (errorCode)
@@ -292,11 +315,20 @@ namespace Plugin.InAppBilling
 
 				tcsTransaction.TrySetException(new InAppBillingPurchaseException(error, description));
 
+				Console.WriteLine($"PurchaseAsync() - description: { description }");
+				Console.WriteLine($"PurchaseAsync() - error: { error }");
 			});
 
 			paymentObserver.TransactionCompleted += handler;
 
+			Console.WriteLine($"PurchaseAsync() - Before - CreateFrom");
+
 			var payment = SKPayment.CreateFrom(productId);
+
+			Console.WriteLine($"PurchaseAsync() - After - CreateFrom");
+
+			Console.WriteLine($"PurchaseAsync() - payment: { payment }");
+
 			SKPaymentQueue.DefaultQueue.AddPayment(payment);
 
 			return tcsTransaction.Task;
