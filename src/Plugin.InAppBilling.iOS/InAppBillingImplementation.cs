@@ -346,7 +346,14 @@ namespace Plugin.InAppBilling
 				}
 
 				Console.WriteLine($"PurchaseAsync() - Before - TrySetException");
-				tcsTransaction.TrySetException(new InAppBillingPurchaseException(error, description));
+				if(tran != null && !string.IsNullOrWhiteSpace(tran.TransactionIdentifier))
+				{
+					tcsTransaction.TrySetException(new InAppBillingPurchaseException(error, description, tran.TransactionIdentifier));
+				}
+				else
+				{
+					tcsTransaction.TrySetException(new InAppBillingPurchaseException(error, description));
+				}
 				Console.WriteLine($"PurchaseAsync() - After - TrySetException");
 
 				Console.WriteLine($"PurchaseAsync() - description: { description }");

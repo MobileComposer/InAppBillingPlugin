@@ -74,10 +74,15 @@ namespace Plugin.InAppBilling.Abstractions
     /// </summary>
     public class InAppBillingPurchaseException : Exception
     {
-        /// <summary>
-        /// Type of error
-        /// </summary>
-        public PurchaseError PurchaseError { get; }
+		/// <summary>
+		/// Type of error
+		/// </summary>
+		public string PurchaseId { get; }
+
+		/// <summary>
+		/// Type of error
+		/// </summary>
+		public PurchaseError PurchaseError { get; }
         /// <summary>
         /// 
         /// </summary>
@@ -104,5 +109,15 @@ namespace Plugin.InAppBilling.Abstractions
         {
             PurchaseError = error;
         }
-    }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="error"></param>
+		public InAppBillingPurchaseException(PurchaseError error, string message, string purchaseId) : base(message)
+		{
+			PurchaseError = error;
+			PurchaseId = purchaseId;
+		}
+	}
 }
