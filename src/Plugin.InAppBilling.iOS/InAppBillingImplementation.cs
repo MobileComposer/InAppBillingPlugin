@@ -252,7 +252,7 @@ namespace Plugin.InAppBilling
 
 		Task<SKPaymentTransaction> PurchaseAsync(string productId)
 		{
-			Console.WriteLine($"PurchaseAsync()");
+			Console.WriteLine($"PurchaseAsync() - productId: { productId }");
 
 			var tcsTransaction = new TaskCompletionSource<SKPaymentTransaction>();
 
@@ -262,6 +262,38 @@ namespace Plugin.InAppBilling
 				if(tran != null)
 				{
 					Console.WriteLine($"PurchaseAsync() - tran: { tran }");
+					if(tran.Payment != null)
+					{
+						Console.WriteLine($"PurchaseAsync() - tran - tran.Payment.ProductIdentifier: { tran.Payment.ProductIdentifier }");
+					}
+					else
+					{
+						Console.WriteLine($"PurchaseAsync() - tran - tran.Payment.ProductIdentifier is null");
+					}
+
+					if (tran.TransactionIdentifier != null)
+					{
+						Console.WriteLine($"PurchaseAsync() - tran - tran.TransactionIdentifier: { tran.TransactionIdentifier }");
+					}
+					else
+					{
+						Console.WriteLine($"PurchaseAsync() - tran - tran.TransactionIdentifier is null");
+					}
+
+					if(tran.Error != null)
+					{
+						Console.WriteLine($"PurchaseAsync() - tran - tran.Error.Code: { tran.Error.Code }");
+						Console.WriteLine($"PurchaseAsync() - tran - tran.Error.LocalizedDescription: { tran.Error.LocalizedDescription }");
+						Console.WriteLine($"PurchaseAsync() - tran - tran.Error.LocalizedFailureReason: { tran.Error.LocalizedFailureReason }");
+					}
+					else
+					{
+						Console.WriteLine($"PurchaseAsync() - tran - tran.Error is null");
+					}
+				}
+				else
+				{
+					Console.WriteLine($"PurchaseAsync() - tran is null");
 				}
 
 				Console.WriteLine($"PurchaseAsync() - success: { success }");
@@ -313,7 +345,9 @@ namespace Plugin.InAppBilling
 						break;
 				}
 
+				Console.WriteLine($"PurchaseAsync() - Before - TrySetException");
 				tcsTransaction.TrySetException(new InAppBillingPurchaseException(error, description));
+				Console.WriteLine($"PurchaseAsync() - After - TrySetException");
 
 				Console.WriteLine($"PurchaseAsync() - description: { description }");
 				Console.WriteLine($"PurchaseAsync() - error: { error }");
